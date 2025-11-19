@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit {
 
   askAbout() {
     window.open(
-      'https://api.whatsapp.com/send?phone=+5511970760004&text=Olá%20Casa%20De%20Móveis%20Usados',
+      'https://api.whatsapp.com/send?phone=+5511916255803&text=Olá%20Casa%20De%20Móveis%20Usados',
       '_blank' // This specifies that the link should open in a new tab
     );
   }
