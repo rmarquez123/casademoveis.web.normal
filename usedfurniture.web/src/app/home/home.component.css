@@ -1,0 +1,254 @@
+/* home.component.css */
+
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 800px;
+}
+
+.intro-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.intro-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.intro-section p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.furniture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.furniture-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-width: 200px;
+    min-height: 300px;  
+}
+
+.furniture-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.furniture-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+    width: 200px;
+    height: 300px;
+}
+
+.furniture-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+/* .price {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+} */
+
+.furniture-card button {
+    background: #64412f;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+
+.furniture-card img:hover {
+    cursor: pointer;
+}
+
+.furniture-card button:hover {
+    background: #7c543f;
+}
+
+.footer-container {
+    background: #eae0d5;
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid #ccc;
+}
+
+.footer-container p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+.button-bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+
+
+/* Modal styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it overlays everything */
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 350px;
+    height: 80%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .modal-content img {
+    max-height: 70%;
+    width: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .modal-content h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  .modal-content .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .modal-content p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .modal-content .close:hover {
+    color: #64412f;
+  }
+  /* ... existing styles ... */
+
+/* Additional style for the new close button */
+.close-button {
+    background: #64412f;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  
+  .close-button:hover {
+    background: #7c543f;
+  }
+  
+
+  .modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    height: 90%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative; /* Make sure we can position .close absolutely */
+}
+
+/* Position the top-right close (X) button */
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+.modal-content .close:hover {
+    color: #64412f;
+}
+
+
+.categories-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.categories-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0rem;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.4rem;
+}
+
+.category-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 0rem;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card:hover {
+  background-color: #f4f4f4;
+}
+
+.category-card.selected {
+  background-color: #64412f;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.no-items-message {
+  text-align: center;
+  color: #555;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+.price-value {
+  font-weight: bold;
+}

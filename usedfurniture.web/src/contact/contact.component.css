@@ -1,0 +1,42 @@
+/* contact.component.css */
+
+/* Styles for the contact container */
+.contact-container {
+    display: flex; /* Arrange children in a row */
+    gap: 2rem; /* Add space between the contact info and the map */
+    align-items: flex-start; /* Align items to the top */
+  }
+  
+  /* Contact info styling */
+  .contact-info {
+    flex: 1; /* Take up equal space */
+    padding: 1rem;
+    background-color: #f7f3ed;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  /* Map section styling */
+  .map-section {
+    flex: 2; /* Take up more space than the contact info */
+    height: 450px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    min-height: 500px;
+
+  }
+  
+  /* Responsive layout for smaller screens */
+  @media (max-width: 768px) {
+    .contact-container {
+      flex-direction: column; /* Stack sections vertically */
+      gap: 1rem; /* Reduce spacing between sections */
+    }
+  
+    .map-section {
+      height: 300px; /* Adjust map height for smaller screens */
+      width: 100%;
+    }
+  }
+  

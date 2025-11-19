@@ -1,0 +1,249 @@
+/* General Header Styling */
+.header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: #eae0d5;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+    /* Ensure the nav menu is positioned relative to the header */
+}
+
+.header-container h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+
+}
+
+.header-container h1:hover {
+    cursor: pointer;
+}
+
+/* Navigation styling for desktop */
+.navigation {
+    display: flex;
+    margin-left: auto;
+}
+
+.navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.5rem;
+    vertical-align: middle;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+.navigation ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.navigation ul li a:hover {
+    text-decoration: underline;
+}
+
+.active-link {
+    font-weight: bold;
+    color: #64412f;
+    border-bottom: 2px solid #64412f;
+}
+
+/* Hamburger Menu Styling */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Mobile View Styling */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Initially hide the navigation on small screens */
+    .navigation {
+        display: none;
+        flex-direction: column;
+        background: #eae0d5;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        z-index: 999;
+        /* Ensure the menu appears on top */
+    }
+
+    .navigation.open {
+        display: flex;
+        /* Show the navigation when 'open' class is applied */
+    }
+
+    .navigation ul {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .navigation ul li a {
+        text-align: center;
+        font-size: 1rem;
+    }
+}
+
+
+
+.navigation ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.navigation ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Optional: Specific styling for WhatsApp link */
+.navigation ul li a[href*="whatsapp"] {
+    color: #25D366;
+    /* WhatsApp brand color */
+    font-weight: bold;
+}
+
+
+/* Style for the WhatsApp link container */
+.whatsapp-link {
+    display: flex;
+    align-items: center;
+    /* Align the icon vertically */
+    justify-content: center;
+    /* Center the icon horizontally */
+    margin-left: 10px;
+    /* Add some spacing */
+}
+
+/* Style for the WhatsApp icon */
+.whatsapp-link a {
+    display: inline-block;
+    width: 48px;
+    /* Set a consistent size */
+    height: 48px;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg");
+    background-size: cover;
+    /* Ensure the image covers the box */
+    background-position: center;
+    border-radius: 50%;
+    /* Make the icon circular */
+}
+
+.whatsapp-link a:hover {
+    opacity: 0.8;
+    /* Slight transparency on hover */
+}
+
+/* Footer Styling */
+.footer-container {
+    background: #64412f;
+    color: #fff;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+}
+
+.footer-section p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.footer-section a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+/* Social Media Icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.social-icons a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.social-icons img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    border-top: 1px solid #fff;
+    padding-top: 1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-section {
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}

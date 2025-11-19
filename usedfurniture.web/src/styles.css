@@ -1,0 +1,16 @@
+/** styles.css */
+
+body {
+    background-color: #f5f2f0; 
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: .8rem; 
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

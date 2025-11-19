@@ -1,0 +1,51 @@
+<!-- src\app\productdetails\productdetails.component.html -->
+
+<div class="product-details-container" *ngIf="product">
+    <h2 class="product-title">{{ product.name }}</h2>
+
+    <div class="product-details-body">
+        <!-- Left column: Photo and navigation -->
+        <div class="product-details-image">
+            <!-- Thumbnails at the top -->
+            <div class="thumbnails-container" *ngIf="productPhotos.length > 1">
+                <img class="thumbnail" *ngFor="let photo of productPhotos; let i = index" [src]="photo"
+                    [class.selected]="i === currentPhotoIndex" (click)="selectPhoto(i)" alt="Thumbnail" />
+            </div>
+
+            <!-- Main Photo with overlayed navigation -->
+            <div class="photo-display">
+                <button class="nav-button left" (click)="prevPhoto()" [disabled]="productPhotos.length < 2">
+                    &laquo;
+                </button>
+
+                <img class="main-photo"
+                    [src]="productPhotos.length > 0 ? productPhotos[currentPhotoIndex] : 'assets/images/placeholder.jpg'"
+                    [alt]="product.name" />
+
+                <button class="nav-button right" (click)="nextPhoto()" [disabled]="productPhotos.length < 2">
+                    &raquo;
+                </button>
+            </div>
+        </div>
+
+        <!-- Right column: Product details -->
+        <div class="product-details-info">
+            <p><strong>Categoria:</strong> {{ product.categoryName }}</p>
+            <p><strong>Data de recebimento:</strong> {{ product.dateReceived | date:'dd/MM/yyyy' }}</p>
+            <p *ngIf="product.description"><strong>Descrição:</strong> {{ product.description }}</p>
+            <p *ngIf="product.length && product.length > 0"><strong>Comprimento:</strong> {{ product.length }} cm</p>
+            <p *ngIf="product.depth && product.depth > 0"><strong>Profundidade:</strong> {{ product.depth }} cm</p>
+            <p *ngIf="product.height && product.height > 0"><strong>Altura:</strong> {{ product.height }} cm</p>
+            <p *ngIf="product.price && product.price > 0"><strong>Preço:</strong> R$ {{ product.price | number:'1.2-2' }}</p>
+
+            <div class="product-details-footer">
+                <button class="details-button" (click)="goBack()"><< Voltar</button>
+                <button class="details-button whatsapp-button" (click)="askAbout()">
+                    <img class="whatsapp-logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp logo" />
+                    Perguntar
+                </button>
+                
+            </div>
+        </div>
+    </div>
+</div>

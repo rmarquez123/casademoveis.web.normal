@@ -1,0 +1,244 @@
+/** src/app/productdetails/productdetails.component.css **/
+
+.product-details-container {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border-radius: 8px;
+    min-height: 500px;
+}
+
+.product-title {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.product-details-body {
+    display: flex;
+    gap: 2rem;
+    
+    /* Spacing between the columns */
+}
+
+.product-details-image {
+    flex: 1;
+    /* Left column */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Main photo display with overlayed buttons */
+.photo-display {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0rem 0;
+    /* Space between thumbnails and the photo */
+}
+
+.main-photo {
+    max-width: 100%;
+    max-height: 600px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Navigation buttons (overlay) */
+.nav-button {
+    position: absolute;
+    top: 50%;
+    /* Center vertically */
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black background */
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.nav-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.nav-button.left {
+    left: 1rem;
+}
+
+.nav-button.right {
+    right: 1rem;
+}
+
+/* Thumbnails at the top */
+.thumbnails-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0rem;
+}
+
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.thumbnail.selected {
+    border-color: #64412f;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Product details layout */
+.product-details-body {
+    display: flex;
+    gap: 2rem;
+    /* Space between the columns */
+}
+
+.product-details-image {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-details-info {
+    flex: 1;
+    color: #555;
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+}
+
+.product-details-footer {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.details-button {
+    background: #64412f;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.details-button:hover {
+    background: #7c543f;
+}
+
+
+/** src/app/productdetails/productdetails.component.css **/
+
+/* General styles remain unchanged until the media query */
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+    .product-details-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .product-title {
+        font-size: 1.5rem;
+    }
+
+    .product-details-body {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .product-details-image {
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .photo-display {
+        margin: 0 auto;
+    }
+
+    .main-photo {
+        max-height: 500px;
+    }
+
+    .nav-button {
+        font-size: 1rem;
+        padding: 0.3rem 0.8rem;
+    }
+
+    .nav-button.left {
+        left: 0.5rem;
+    }
+
+    .nav-button.right {
+        right: 0.5rem;
+    }
+
+    .thumbnails-container {
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+
+    .thumbnail {
+        width: 50px;
+        height: 50px;
+    }
+
+    .product-details-info {
+        gap: 0.5rem;
+    }
+
+    .details-button {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+    }
+
+    .product-details-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+/* Styles for the WhatsApp button */
+.whatsapp-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #25d366; /* WhatsApp green */
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.whatsapp-button:hover {
+    background: #20b358;
+}
+
+.whatsapp-logo {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+
