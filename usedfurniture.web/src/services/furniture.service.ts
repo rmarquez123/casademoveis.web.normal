@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Photo, Product } from './product.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FurnitureService {
-//  private apiUrl = 'https://restapi.casademoveisusados.com/used_furniture_restapi';
-   private apiUrl = 'http://localhost:8082/used_furniture_restapi';
-
+  private apiUrl = environment.apiUrl;
+  
   /**
    * 
    * @param http 
