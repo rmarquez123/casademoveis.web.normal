@@ -27,7 +27,9 @@ export class FurnitureService {
    */
   getProductsByCategory(category: number): Observable<Product[]> {
     const params = new HttpParams()
-      .set('category', category);
+      .set('category', category)
+      .set('siteVisibleOnly', 'true')
+      ;
     return this.http.get<any[]>(`${this.apiUrl}/products/byCategory`, {params}).pipe(
       map((data: any[]) => {
 
@@ -57,7 +59,9 @@ export class FurnitureService {
    */
   getProducts(): Observable<Product[]> {
     const self = this;
-    return this.http.get<any[]>(`${this.apiUrl}/products`).pipe(
+    const params = new HttpParams()
+      .set('siteVisibleOnly', 'true')
+    const result = this.http.get<any[]>(`${this.apiUrl}/products`, {params}).pipe(
       map((data: any[]) => {
         return data.map(item => {
           return {
@@ -78,6 +82,7 @@ export class FurnitureService {
         });
       })
     );
+    return result;
   }
 
   /**
