@@ -1,30 +1,57 @@
-<!-- src\app\app.component.html -->
+<!-- src/app/app.component.html -->
+
 <header class="header-container">
-  <div class="logo-title">
-    <h1 (click)="goHome()">Casa De Móveis Usados</h1>
+  <div class="header-inner">
+
+    <!-- Botão hamburguer (mobile) -->
+    <button
+      class="menu-toggle"
+      (click)="toggleMenu()"
+      type="button"
+      aria-label="Abrir menu"
+    >
+      ☰
+    </button>
+
+    <!-- Logo + título (sem mexer no layout geral) -->
+    <div class="logo-title" (click)="goHome()">
+      <img
+        src="/logo.png"
+        alt="Casa De Móveis Usados"
+        class="logo-image"
+      />
+      <h1>Casa De Móveis Usados</h1>
+    </div>
+
+    <!-- Botões de navegação à direita, um sobre o outro -->
+    <nav class="nav-actions" [class.open]="menuOpen">
+      <a
+        routerLink="/"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-btn"
+      >
+        Página
+      </a>
+
+      <a
+        routerLink="/contact"
+        routerLinkActive="active-link"
+        class="nav-btn"
+      >
+        Contato
+      </a>
+    </nav>
+
   </div>
-  <button class="menu-toggle" (click)="toggleMenu()">☰</button>
-  <nav class="navigation" [ngClass]="{ 'open': menuOpen }">
-    <ul>
-      <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Página</a></li>
-      <li><a routerLink="/contact" routerLinkActive="active-link">Contato</a></li>
-      <li class="whatsapp-link">
-        <a 
-          href="https://api.whatsapp.com/send?phone=+5511916255803&text=Olá%20Casa%20De%20Móveis%20Usados" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          aria-label="Contact us on WhatsApp"
-        ></a>
-      </li>
-    </ul>
-  </nav>
 </header>
 
 <router-outlet></router-outlet>
 
 <footer class="footer-container">
   <div class="footer-content">
-    <!-- Sobre e Contato -->
+
+    <!-- Sobre -->
     <div class="footer-section about">
       <h3>Casa De Móveis Usados</h3>
       <p>Sua loja de confiança para móveis usados de qualidade.</p>
@@ -34,30 +61,57 @@
     <div class="footer-section social-media">
       <h4>Siga-nos</h4>
       <div class="social-icons">
-        <a href="https://www.facebook.com/casademoveisusados" target="_blank" aria-label="Facebook">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" />
+        <a
+          href="https://www.facebook.com/casademoveisusados"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+            alt="Facebook"
+          />
         </a>
-        <a href="https://www.instagram.com/casamoveisvilamariana" target="_blank" aria-label="Instagram">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
+
+        <a
+          href="https://www.instagram.com/casamoveisvilamariana"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+            alt="Instagram"
+          />
         </a>
-        <a href="https://api.whatsapp.com/send?phone=+5511916255803&text=Olá%20Casa%20De%20Móveis%20Usados" target="_blank" aria-label="WhatsApp">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+
+        <a
+          href="https://api.whatsapp.com/send?phone=+5511916255803&text=Olá%20Casa%20De%20Móveis%20Usados"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp"
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+            alt="WhatsApp"
+          />
         </a>
       </div>
     </div>
 
-    <!-- Detalhes de Contato -->
+    <!-- Contato no rodapé -->
     <div class="footer-section contact">
       <h4>Entre em Contato</h4>
       <p><strong>Telefone:</strong> +55 (11) 5571-5900</p>
       <p><strong>Email:</strong> casademoveisusados&#64;gmail.com</p>
       <p><strong>Endereço:</strong> Rua França Pinto 774, Vila Mariana - SP</p>
       <p><strong>Segunda a sexta:</strong> 11:00 as 18:00</p>
-      <p><strong>Sabado:</strong> 11:00 as 17:00</p>
+      <p><strong>Sábado:</strong> 11:00 as 17:00</p>
     </div>
+
   </div>
+
   <div class="footer-bottom">
     <p>© 2024 Casa De Móveis Usados. Todos os direitos reservados.</p>
   </div>
 </footer>
-

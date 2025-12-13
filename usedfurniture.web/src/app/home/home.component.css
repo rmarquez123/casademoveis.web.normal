@@ -1,254 +1,152 @@
-/* home.component.css */
-
-.content-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    min-height: 800px;
+.content-container{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+  min-height: 70vh;
 }
 
-.intro-section {
-    text-align: center;
-    margin-bottom: 2rem;
+.categories-section{
+  margin-bottom: 1.5rem;
+  text-align: left;
 }
 
-.intro-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+.categories-grid{
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
 }
 
-.intro-section p {
-    font-size: 1.2rem;
-    color: #555;
-}
-
-.furniture-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.5rem;
-}
-
-.furniture-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    min-width: 200px;
-    min-height: 300px;  
-}
-
-.furniture-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.furniture-card img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-    width: 200px;
-    height: 300px;
-}
-
-.furniture-card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    color: #333;
-}
-
-/* .price {
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-} */
-
-.furniture-card button {
-    background: #64412f;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-}
-
-
-.furniture-card img:hover {
-    cursor: pointer;
-}
-
-.furniture-card button:hover {
-    background: #7c543f;
-}
-
-.footer-container {
-    background: #eae0d5;
-    text-align: center;
-    padding: 1rem;
-    border-top: 1px solid #ccc;
-}
-
-.footer-container p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #555;
-}
-.button-bar {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-}
-
-
-/* Modal styling */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000; /* Ensure it overlays everything */
-  }
-  
-  .modal-content {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 350px;
-    height: 80%;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  .modal-content img {
-    max-height: 70%;
-    width: auto;
-    margin-bottom: 1rem;
-  }
-  
-  .modal-content h2 {
-    margin-top: 0;
-    font-size: 1.8rem;
-    color: #333;
-  }
-  
-  .modal-content .price {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-  
-  .modal-content p {
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  .modal-content .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: #333;
-  }
-  
-  .modal-content .close:hover {
-    color: #64412f;
-  }
-  /* ... existing styles ... */
-
-/* Additional style for the new close button */
-.close-button {
-    background: #64412f;
-    color: #fff;
-    padding: 0.5rem 1.5rem;
-    border: none;
-    cursor: pointer;
-    margin-top: 1rem;
-    font-size: 1rem;
-    border-radius: 5px;
-  }
-  
-  .close-button:hover {
-    background: #7c543f;
-  }
-  
-
-  .modal-content {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    height: 90%;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    position: relative; /* Make sure we can position .close absolutely */
-}
-
-/* Position the top-right close (X) button */
-.modal-content .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: #333;
-}
-
-.modal-content .close:hover {
-    color: #64412f;
-}
-
-
-.categories-section {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.categories-section h2 {
-  font-size: 1.8rem;
-  margin-bottom: 0rem;
-}
-
-.categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 0.4rem;
-}
-
-.category-card {
+.category-card{
   background: #fff;
-  border: 1px solid #ddd;
-  padding: 0rem;
-  text-align: center;
+  border: 1px solid #e7e7e7;
+  padding: .6rem .9rem;
+  border-radius: 999px;
   cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: bold;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  font-size: .95rem;
+  font-weight: 700;
+  color: #444;
+  transition: .2s ease;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,.04);
 }
-
-.category-card:hover {
-  background-color: #f4f4f4;
+.category-card:hover{
+  transform: translateY(-1px);
+  border-color: #d8d8d8;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
 }
-
-.category-card.selected {
-  background-color: #64412f;
+.category-card.selected{
+  background: #64412f;
   color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-color: transparent;
+  box-shadow: 0 8px 20px rgba(100,65,47,.35);
 }
 
-.no-items-message {
-  text-align: center;
+@media (max-width: 600px){
+  .categories-grid{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: .25rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .category-card{ white-space: nowrap; }
+}
+
+.furniture-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 900px){
+  .furniture-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px){
+  .furniture-grid{ grid-template-columns: 1fr; }
+}
+
+.furniture-card{
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  overflow: hidden;
+  text-align: left;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 340px;
+}
+.furniture-card:hover{
+  transform: translateY(-4px);
+  border-color: #e0e0e0;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+}
+
+.furniture-card img{
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  background: #f3f3f3;
+  cursor: pointer;
+}
+
+.furniture-card h3{
+  font-size: 1.05rem;
+  margin: .8rem .9rem .4rem;
+  color: #222;
+  font-weight: 800;
+}
+
+.price{
+  margin: 0 .9rem .25rem;
+  font-size: .95rem;
   color: #555;
-  font-size: 1.2rem;
-  margin-top: 2rem;
+}
+.price-value{
+  font-weight: 800;
+  color: #1c1c1c;
 }
 
-.price-value {
-  font-weight: bold;
+.recieved{
+  margin: 0 .9rem .75rem;
+  font-size: .8rem;
+  color: #888;
+}
+
+.actions{
+  display: flex;
+  gap: .5rem;
+  margin: auto .9rem .9rem;
+}
+
+.furniture-card button{
+  background: #64412f;
+  color: #fff;
+  padding: .55rem .9rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: .2s ease;
+  box-shadow: 0 6px 16px rgba(100,65,47,.25);
+}
+.furniture-card button:hover{
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.furniture-card button.ghost{
+  background: transparent;
+  color: #222;
+  border: 1px solid #e2e2e2;
+  box-shadow: none;
+}
+
+.no-items-message{
+  text-align: center;
+  color: #666;
+  font-size: 1.05rem;
+  margin-top: 2rem;
+  background: #fff;
+  border: 1px dashed #e6e6e6;
+  padding: 1.2rem;
+  border-radius: 12px;
 }

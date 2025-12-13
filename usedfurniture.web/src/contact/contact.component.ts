@@ -1,17 +1,11 @@
-// src\app\contact.component.ts
-
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact',
-  templateUrl: 'contact.component.html',
-  styleUrls: ['./contact.component.css']
+  standalone: true,
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css'],
+  imports: [CommonModule]
 })
-export class ContactComponent implements OnInit {
-  
-  // New function to handle any initialization logic for the Contact component
-  ngOnInit(): void {
-    // Currently, no initialization logic needed. 
-    // Here you can load map configurations, if required in the future.
-  }
-}
+export class ContactComponent {}

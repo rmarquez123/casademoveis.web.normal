@@ -1,116 +1,74 @@
-// furniture.service.ts
-
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Photo, Product } from './product.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from "../environments/environment";
 
-@Injectable({
-  providedIn: 'root'
-})
+type ApiProduct = {
+  product_id: number;
+  name: string;
+  description?: string;
+  available: boolean;
+  dateReceived: number; // epoch seconds
+  dateSold?: string | number;
+  category: number;
+  categoryName: string;
+  length?: number;
+  depth?: number;
+  height?: number;
+  price?: number;
+};
+
+@Injectable({ providedIn: 'root' })
 export class FurnitureService {
-  private apiUrl = environment.apiUrl;
-  
-  /**
-   * 
-   * @param http 
-   */
-  constructor(private http: HttpClient) {  
-  }
-  
+  private apiUrl = environment.apiUrl.replace(/\/$/, '');
 
-  /**
-   * 
-   * @param category 
-   * @returns 
-   */
+  constructor(private http: HttpClient) {}
+
   getProductsByCategory(category: number): Observable<Product[]> {
-    const params = new HttpParams()
-      .set('category', category)
-      .set('siteVisibleOnly', 'true')
-      ;
-    return this.http.get<any[]>(`${this.apiUrl}/products/byCategory`, {params}).pipe(
-      map((data: any[]) => {
-
-        return data.map(item => {
-          return {
-            id: item.product_id,
-            name: item.name,
-            description: item.description,
-            available: item.available,
-            dateReceived: new Date(item.dateReceived * 1000),
-            dateSold: item.dateSold ? new Date(item.dateSold) : undefined,
-            category: item.category,
-            categoryName: item.categoryName,
-            pictures: [], 
-            length: item.length,
-            depth: item.depth,
-            height: item.height,
-            price: item.price
-          } as Product;
-        });
-      }) 
+    const params = new HttpParams().set('category', category);
+    return this.http.get<ApiProduct[]>(`${this.apiUrl}/products/byCategory`, { params }).pipe(
+      map(data => data.map(this.mapProduct))
     );
   }
-  /**
-   * 
-   * @returns 
-   */
+
   getProducts(): Observable<Product[]> {
-    const self = this;
-    const params = new HttpParams()
-      .set('siteVisibleOnly', 'true')
-    const result = this.http.get<any[]>(`${this.apiUrl}/products`, {params}).pipe(
-      map((data: any[]) => {
-        return data.map(item => {
-          return {
-            id: item.product_id,
-            name: item.name,
-            description: item.description,
-            available: item.available,
-            dateReceived: new Date(item.dateReceived * 1000),
-            dateSold: item.dateSold ? new Date(item.dateSold) : undefined,
-            category: item.category,
-            categoryName: item.categoryName,
-            pictures: [], 
-            length: item.length,
-            depth: item.depth,
-            height: item.height,
-            price: item.price
-          } as Product;
-        });
-      })
+    return this.http.get<ApiProduct[]>(`${this.apiUrl}/products`).pipe(
+      map(data => data.map(this.mapProduct))
     );
-    return result;
   }
 
-  /**
-   * 
-   * @param productId 
-   * @returns 
-   */
-  getPhotosForProduct(productId: number, width?: number, height?:number): Observable<Photo[]> {
-    return this.http.get<Photo[]>(`${this.apiUrl}/photos/product`, {
-      params: { productId: productId.toString(), 
-        ...(width !== undefined && { width: width.toString() }),
-        ...(height !== undefined && { height: height.toString() })
-      },
-    });
+  getPhotosForProduct(productId: number, width?: number, height?: number): Observable<Photo[]> {
+    const params: any = { productId: productId.toString() };
+    if (width != null) params.width = width.toString();
+    if (height != null) params.height = height.toString();
+
+    return this.http.get<Photo[]>(`${this.apiUrl}/photos/product`, { params });
   }
 
-
-  /**
-   * 
-   * @param productId 
-   * @returns 
-   */
   getSinglePhotoForProduct(productId: number, width?: number, height?: number): Observable<Photo> {
-    return this.http.get<Photo>(`${this.apiUrl}/photos/product/single`, {
-      params: {
-        productId: productId.toString(),
-        ...(width !== undefined && { width: width.toString() }),
-        ...(height !== undefined && { height: height.toString() })
-      },
-    });
-  }}
+    const params: any = { productId: productId.toString() };
+    if (width != null) params.width = width.toString();
+    if (height != null) params.height = height.toString();
+
+    return this.http.get<Photo>(`${this.apiUrl}/photos/product/single`, { params });
+  }
+
+  private mapProduct(item: ApiProduct): Product {
+    return {
+      id: item.product_id,
+      name: item.name,
+      description: item.description ?? '',
+      available: item.available,
+      dateReceived: new Date(item.dateReceived * 1000),
+      dateSold: item.dateSold ? new Date(item.dateSold) : undefined,
+      category: item.category,
+      categoryName: item.categoryName,
+      pictures: [],
+      length: item.length,
+      depth: item.depth,
+      height: item.height,
+      price: item.price
+    };
+  }
+}

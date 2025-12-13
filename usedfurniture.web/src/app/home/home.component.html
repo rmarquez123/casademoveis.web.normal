@@ -1,51 +1,53 @@
-<!-- home.component.html -->
-
 <main class="content-container">
-    <section class="categories-section">
-        <div class="categories-grid">
-            <div class="category-card unselectable" *ngFor="let category of categories"
-                [class.selected]="selectedCategory === category.id" (click)="toggleCategory(category.id)">
-                <h3>{{ category.name }}</h3>
-            </div>
-        </div>
-    </section>
 
-    <section class="furniture-grid" *ngIf="items.length > 0">
-        <article class="furniture-card" *ngFor="let item of items">
-            <!-- Show the first photo if available; otherwise a placeholder -->
-            <img [src]="item.pictures && item.pictures.length > 0 ? item.pictures[0] : 'assets/images/placeholder.jpg'"
-                [alt]="item.name" (click)="viewDetails(item)">
-            <h3>{{ item.name }}</h3>
-            <p class="price">Preço:
-                <span class="price-value">
-                    {{ item.price ? (item.price | currency:'BRL') : 'Sob consulta' }}
-                </span>
-            </p>
-            <p class="recieved">{{ item.dateReceived.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year:
-                'numeric'}) }}</p>
-            <button (click)="viewDetails(item)">Ver Mais</button>
-        </article>
-    </section>
-
-
-    <p *ngIf="items.length === 0" class="no-items-message">
-        Nenhum item encontrado. Selecione uma categoria ou navegue por todos os móveis.
-    </p>
-</main>
-
-
-<!-- Modal for item details -->
-<div class="modal" *ngIf="isModalOpen">
-    <div class="modal-content">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <img [src]="selectedItem?.image" [alt]="selectedItem?.title" />
-        <h2>{{ selectedItem?.title }}</h2>
-        <p class="recieved">Recebido: <strong> {{ selectedItem?.recieved }}</strong></p>
-        <p>Descrição: Um guarda-roupa de madeira vintage com entalhes ornamentados e gavetas.</p>
-        <div class="button-bar">
-            <button class="close-button" (click)="askAbout()">Pergunta Dela</button>
-            <div style="margin-right: 5px;"> </div>
-            <button class="close-button" (click)="closeModal()">Fecha</button>
-        </div>
+  <section class="categories-section">
+    <div class="categories-grid">
+      <button
+        class="category-card unselectable"
+        *ngFor="let category of categories"
+        [class.selected]="selectedCategory === category.id"
+        (click)="toggleCategory(category.id)"
+        type="button"
+      >
+        {{ category.name }}
+      </button>
     </div>
-</div>
+  </section>
+
+  <section class="furniture-grid" *ngIf="items.length > 0; else emptyState">
+    <article class="furniture-card" *ngFor="let item of items">
+
+      <img
+        [src]="item.pictures?.[0] ?? 'assets/images/placeholder.jpg'"
+        [alt]="item.name"
+        (click)="viewDetails(item)"
+      />
+
+      <h3>{{ item.name }}</h3>
+
+      <p class="price">
+        Preço:
+        <span class="price-value">
+          {{ item.price ? (item.price | currency:'BRL') : 'Sob consulta' }}
+        </span>
+      </p>
+
+      <p class="recieved" *ngIf="item.dateReceived">
+        {{ item.dateReceived | date:'dd/MM/yyyy' }}
+      </p>
+
+      <div class="actions">
+        <button (click)="viewDetails(item)" type="button">Ver detalhes</button>
+        <button class="ghost" (click)="askAbout(item)" type="button">Tenho interesse</button>
+      </div>
+
+    </article>
+  </section>
+
+  <ng-template #emptyState>
+    <p class="no-items-message">
+      Nenhum item encontrado. Selecione uma categoria ou navegue por todos os móveis.
+    </p>
+  </ng-template>
+
+</main>
