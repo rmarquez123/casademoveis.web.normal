@@ -247,3 +247,9 @@
         justify-content: center;
     }
 }
+
+
+.header-inner {
+  padding-top: 0; 
+  padding-bottom: 0; 
+}
