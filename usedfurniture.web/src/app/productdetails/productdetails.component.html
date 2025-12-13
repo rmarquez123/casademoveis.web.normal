@@ -1,51 +1,113 @@
-<!-- src\app\productdetails\productdetails.component.html -->
+<section class="details-page" *ngIf="product">
+  <div class="container">
 
-<div class="product-details-container" *ngIf="product">
-    <h2 class="product-title">{{ product.name }}</h2>
+    <button class="back-link" (click)="goBack()" type="button">
+      ← Voltar para lista
+    </button>
 
-    <div class="product-details-body">
-        <!-- Left column: Photo and navigation -->
-        <div class="product-details-image">
-            <!-- Thumbnails at the top -->
-            <div class="thumbnails-container" *ngIf="productPhotos.length > 1">
-                <img class="thumbnail" *ngFor="let photo of productPhotos; let i = index" [src]="photo"
-                    [class.selected]="i === currentPhotoIndex" (click)="selectPhoto(i)" alt="Thumbnail" />
-            </div>
+    <div class="details card">
 
-            <!-- Main Photo with overlayed navigation -->
-            <div class="photo-display">
-                <button class="nav-button left" (click)="prevPhoto()" [disabled]="productPhotos.length < 2">
-                    &laquo;
-                </button>
+      <div class="gallery">
+        <div class="photo-display">
+          <button
+            class="nav-button left"
+            (click)="prevPhoto()"
+            [disabled]="productPhotos.length < 2"
+            type="button"
+            aria-label="Foto anterior"
+          >‹</button>
 
-                <img class="main-photo"
-                    [src]="productPhotos.length > 0 ? productPhotos[currentPhotoIndex] : 'assets/images/placeholder.jpg'"
-                    [alt]="product.name" />
+          <img
+            class="main-photo"
+            [src]="productPhotos.length ? productPhotos[currentPhotoIndex] : 'assets/images/placeholder.jpg'"
+            [alt]="product.name"
+          />
 
-                <button class="nav-button right" (click)="nextPhoto()" [disabled]="productPhotos.length < 2">
-                    &raquo;
-                </button>
-            </div>
+          <button
+            class="nav-button right"
+            (click)="nextPhoto()"
+            [disabled]="productPhotos.length < 2"
+            type="button"
+            aria-label="Próxima foto"
+          >›</button>
         </div>
 
-        <!-- Right column: Product details -->
-        <div class="product-details-info">
-            <p><strong>Categoria:</strong> {{ product.categoryName }}</p>
-            <p><strong>Data de recebimento:</strong> {{ product.dateReceived | date:'dd/MM/yyyy' }}</p>
-            <p *ngIf="product.description"><strong>Descrição:</strong> {{ product.description }}</p>
-            <p *ngIf="product.length && product.length > 0"><strong>Comprimento:</strong> {{ product.length }} cm</p>
-            <p *ngIf="product.depth && product.depth > 0"><strong>Profundidade:</strong> {{ product.depth }} cm</p>
-            <p *ngIf="product.height && product.height > 0"><strong>Altura:</strong> {{ product.height }} cm</p>
-            <p *ngIf="product.price && product.price > 0"><strong>Preço:</strong> R$ {{ product.price | number:'1.2-2' }}</p>
-
-            <div class="product-details-footer">
-                <button class="details-button" (click)="goBack()"><< Voltar</button>
-                <button class="details-button whatsapp-button" (click)="askAbout()">
-                    <img class="whatsapp-logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp logo" />
-                    Perguntar
-                </button>
-                
-            </div>
+        <div class="thumbnails-container" *ngIf="productPhotos.length > 1">
+          <button
+            class="thumb"
+            *ngFor="let photo of productPhotos; let i = index"
+            [class.selected]="i === currentPhotoIndex"
+            (click)="selectPhoto(i)"
+            type="button"
+          >
+            <img [src]="photo" [alt]="'Thumbnail '+(i+1)" />
+          </button>
         </div>
+      </div>
+
+      <aside class="info">
+        <h1 class="product-title">{{ product.name }}</h1>
+
+        <div class="price-box" *ngIf="product.price && product.price > 0; else priceConsult">
+          <span class="price">
+            {{ product.price | currency:'BRL':'symbol':'1.2-2' }}
+          </span>
+          <span class="price-note">à vista</span>
+        </div>
+        <ng-template #priceConsult>
+          <div class="price-box consult">
+            <span class="price">Sob consulta</span>
+            <span class="price-note">chame no WhatsApp</span>
+          </div>
+        </ng-template>
+
+        <div class="meta">
+          <div class="meta-row">
+            <span class="label">Categoria</span>
+            <span class="value">{{ product.categoryName }}</span>
+          </div>
+          <div class="meta-row">
+            <span class="label">Recebido em</span>
+            <span class="value">{{ product.dateReceived | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+
+        <div class="dims"
+          *ngIf="(product.length && product.length>0) || (product.depth && product.depth>0) || (product.height && product.height>0)">
+          <h3>Dimensões</h3>
+          <div class="dims-grid">
+            <div class="dim" *ngIf="product.length && product.length > 0">
+              <span class="label">Comprimento</span>
+              <span class="value">{{ product.length }} cm</span>
+            </div>
+            <div class="dim" *ngIf="product.depth && product.depth > 0">
+              <span class="label">Profundidade</span>
+              <span class="value">{{ product.depth }} cm</span>
+            </div>
+            <div class="dim" *ngIf="product.height && product.height > 0">
+              <span class="label">Altura</span>
+              <span class="value">{{ product.height }} cm</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="desc" *ngIf="product.description">
+          <h3>Descrição</h3>
+          <p>{{ product.description }}</p>
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" (click)="goBack()" type="button">Voltar</button>
+
+          <button class="btn whatsapp-button" (click)="askAbout()" type="button">
+            <img class="whatsapp-logo"
+                 src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                 alt="" />
+            Perguntar no WhatsApp
+          </button>
+        </div>
+      </aside>
+
     </div>
-</div>
+  </div>
+</section>

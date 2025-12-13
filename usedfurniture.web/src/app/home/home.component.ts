@@ -1,117 +1,100 @@
-// src\app\home.component.ts
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common';
 import { FurnitureService } from '../../services/furniture.service';
 import { Category, Product } from '../../services/product.model';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.component.html',
+  standalone: true,
+  templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   imports: [CommonModule]
-
 })
 export class HomeComponent implements OnInit {
+
   items: Product[] = [];
-  selectedItem: any = null;
-  isModalOpen: boolean = false;
 
-  constructor(private furnitureService: FurnitureService, private router: Router) { }
+  categories: Category[] = [
+    { name: 'Cozinha', id: 0 },
+    { name: 'Sala', id: 1 },
+    { name: 'Quartos', id: 2 },
+  ];
 
-  ngOnInit() {
+  selectedCategory: number | null = null;
+
+  private photoCache = new Map<number, string>();
+
+  constructor(
+    private furnitureService: FurnitureService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadAllProducts();
+  }
+
+  private loadAllProducts(): void {
     this.furnitureService.getProducts().subscribe(products => {
       this.items = products;
       this.loadPhotosForAllProducts();
     });
   }
-  private photoCache: Map<number, string> = new Map<number, string>();
+
+  toggleCategory(categoryId: number): void {
+    if (this.selectedCategory === categoryId) {
+      this.selectedCategory = null;
+      this.loadAllProducts();
+      return;
+    }
+
+    this.selectedCategory = categoryId;
+
+    this.furnitureService.getProductsByCategory(categoryId).subscribe(products => {
+      this.items = products;
+      this.loadPhotosForAllProducts();
+    });
+  }
 
   private loadPhotosForAllProducts(): void {
-    this.items.forEach((product) => {
-  
-      // 1. Check if the photo is already in the cache
-      if (this.photoCache.has(product.id)) {
-        // Use cached image
-        const cachedUrl = this.photoCache.get(product.id);
-        product.pictures = cachedUrl ? [cachedUrl] : [];
-      } else {
-        // 2. Otherwise, fetch from the backend
-        this.furnitureService.getSinglePhotoForProduct(product.id, 250, 400).subscribe({
+    this.items.forEach(product => {
+      const cachedUrl = this.photoCache.get(product.id);
+      if (cachedUrl) {
+        product.pictures = [cachedUrl];
+        return;
+      }
+
+      this.furnitureService
+        .getSinglePhotoForProduct(product.id, 600, 600)
+        .subscribe({
           next: (photo) => {
-            if (photo && photo.src) {
-              const dataUrl = 'data:image/jpeg;base64,' + photo.src;
-              
-              // Cache the result for future use
+            if (photo?.src) {
+              const dataUrl = `data:image/jpeg;base64,${photo.src}`;
               this.photoCache.set(product.id, dataUrl);
-              
-              // Update the product’s pictures
               product.pictures = [dataUrl];
+            } else {
+              product.pictures = [];
             }
           },
           error: (err) => {
             console.error('Error loading photo for product', product.id, err);
+            product.pictures = [];
           }
         });
-      }
     });
   }
-  
-  categories: Category[] = [
-    { name: 'Cozinha', id: 0 },
-    { name: 'Sala', id: 1 },
-    { name: 'Quartos', id: 2 },
-    // { name: 'Outras', id: -1 },
-  ];
 
-
-  filterByCategory(category: number) {
-    this.furnitureService.getProductsByCategory(category).subscribe(products => {
-      this.items = products;
-    });
-
-  }
-
-  selectedCategory: number | null = null;
-
-  toggleCategory(category: number) {
-    if (this.selectedCategory === category) {
-      // Deselect category and show all items
-      this.selectedCategory = null;
-      this.furnitureService.getProducts().subscribe(products => {
-        this.items = products;
-        this.loadPhotosForAllProducts();
-      });
-    } else {
-      // Select category and filter items
-      this.selectedCategory = category;
-      this.furnitureService.getProductsByCategory(category).subscribe(products => {
-        this.items = products;
-        this.loadPhotosForAllProducts();
-      });
-    }
-  }
-
-
-
-  // Function to open the modal and display the selected item
-  viewDetails(item: Product) {
-    // Instead of opening the modal:
+  viewDetails(item: Product): void {
     this.router.navigate(['/products', item.id]);
   }
 
+  askAbout(item?: Product): void {
+    const name = item?.name ? ` do móvel: ${item.name}` : '';
+    const message = encodeURIComponent(`Olá CasaMóveis! Tenho interesse${name}.`);
 
-  // Function to close the modal
-  closeModal() {
-    this.isModalOpen = false;
-    this.selectedItem = null;
-  }
-
-  askAbout() {
     window.open(
-      'https://api.whatsapp.com/send?phone=+5511916255803&text=Olá%20Casa%20De%20Móveis%20Usados',
-      '_blank' // This specifies that the link should open in a new tab
+      `https://api.whatsapp.com/send?phone=+5511916255803&text=${message}`,
+      '_blank'
     );
   }
-
 }

@@ -1,37 +1,32 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router, NavigationEnd } from '@angular/router';
+import { catchError, filter, of } from 'rxjs';
 import { environment } from '../environments/environment';
 
-@Injectable({
-    providedIn: 'root'   
-})  
+@Injectable({ providedIn: 'root' })
 export class AnalyticsService {
-    
-  private apiUrl = environment.apiUrl;
 
-  /**
-   * 
-   * @param http 
-   * @param router 
-   */
-  constructor(private http: HttpClient, private router: Router) { }
+  private apiUrl = environment.apiUrl.replace(/\/$/, '');
 
-  /**
-   * 
-   */
-  startTracking() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        const params = new HttpParams().set('page', event.urlAfterRedirects);
+  constructor(private http: HttpClient, private router: Router) {}
 
-        this.http.post(`${this.apiUrl}/api/track`, params.toString(), {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).subscribe();
-      }
-    });
+  startTracking(): void {
+    this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe(event => {
+        const body = new HttpParams().set('page', event.urlAfterRedirects);
+
+        this.http.post(`${this.apiUrl}/api/track`, body.toString(), {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+        .pipe(
+          catchError(err => {
+            console.warn('Analytics track failed', err);
+            return of(null);
+          })
+        )
+        .subscribe();
+      });
   }
 }
