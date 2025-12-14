@@ -23,22 +23,37 @@ type ApiProduct = {
 export class FurnitureService {
   private apiUrl = environment.apiUrl.replace(/\/$/, '');
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getProductsByCategory(category: number): Observable<Product[]> {
-    const params = new HttpParams().set('category', category);
-    return this.http.get<ApiProduct[]>(`${this.apiUrl}/products/byCategory`, { params }).pipe(
+    /**
+     * Get products by category.
+     */
+    const params = new HttpParams() //
+      .set('category', category)
+      .set("siteVisibleOnly", "true")
+      ;
+    const result = this.http.get<ApiProduct[]>(`${this.apiUrl}/products/byCategory`, { params }).pipe(
       map(data => data.map(this.mapProduct))
     );
+    return result;
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<ApiProduct[]>(`${this.apiUrl}/products`).pipe(
+    /**
+     * Get all products.
+     */
+    const params = new HttpParams().set("siteVisibleOnly", "true");
+    const result = this.http.get<ApiProduct[]>(`${this.apiUrl}/products`, { params }).pipe(
       map(data => data.map(this.mapProduct))
-    );
+    )
+    return result;
   }
 
   getPhotosForProduct(productId: number, width?: number, height?: number): Observable<Photo[]> {
+    /**
+     * Get all photos for a product.
+     */
     const params: any = { productId: productId.toString() };
     if (width != null) params.width = width.toString();
     if (height != null) params.height = height.toString();
@@ -47,11 +62,15 @@ export class FurnitureService {
   }
 
   getSinglePhotoForProduct(productId: number, width?: number, height?: number): Observable<Photo> {
+    /**
+     * Get a single photo for a product. If multiple photos exist, the first one is returned.
+     */
     const params: any = { productId: productId.toString() };
     if (width != null) params.width = width.toString();
     if (height != null) params.height = height.toString();
 
-    return this.http.get<Photo>(`${this.apiUrl}/photos/product/single`, { params });
+    const result = this.http.get<Photo>(`${this.apiUrl}/photos/product/single`, { params });
+    return result;
   }
 
   private mapProduct(item: ApiProduct): Product {
