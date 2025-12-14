@@ -33,9 +33,9 @@ export class FurnitureService {
       .set('category', category)
       .set("siteVisibleOnly", "true")
       ;
-    const result = this.http.get<ApiProduct[]>(`${this.apiUrl}/products/byCategory`, { params }).pipe(
-      map(data => data.map(this.mapProduct))
-    );
+
+    const result = this.http.get<ApiProduct[]>(`${this.apiUrl}/products/byCategory`, { params })
+      .pipe(map(this.mapProducts.bind(this)));
     return result;
   }
 
@@ -45,10 +45,28 @@ export class FurnitureService {
      */
     const params = new HttpParams().set("siteVisibleOnly", "true");
     const result = this.http.get<ApiProduct[]>(`${this.apiUrl}/products`, { params }).pipe(
-      map(data => data.map(this.mapProduct))
-    )
+      map(this.mapProducts.bind(this))
+    );
     return result;
   }
+
+
+  private mapProducts(data: ApiProduct[]): Product[] {
+    /**
+     * Map API products to Product model and shuffle the result.
+     */
+    const products = data.map(item => this.mapProduct(item));
+    // Fisher-Yates shuffle
+    for (let i = products.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [products[i], products[j]] = [products[j], products[i]];
+    }
+    return products;
+
+  }
+
+
+
 
   getPhotosForProduct(productId: number, width?: number, height?: number): Observable<Photo[]> {
     /**
@@ -74,7 +92,7 @@ export class FurnitureService {
   }
 
   private mapProduct(item: ApiProduct): Product {
-    return {
+    const result = {
       id: item.product_id,
       name: item.name,
       description: item.description ?? '',
@@ -89,5 +107,9 @@ export class FurnitureService {
       height: item.height,
       price: item.price
     };
+    return result;
   }
+
 }
+
+
